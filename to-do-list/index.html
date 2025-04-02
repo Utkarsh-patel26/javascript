@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        body {
+            background: url('https://www.w3schools.com/w3images/lights.jpg') center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 50px;
+            font-family: Arial, sans-serif;
+        }
+
+        .box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            width: 320px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .item:hover {
+            background: #f0f0f0;
+        }
+
+        .done {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Task Manager</h2>
+        <div class="input-group">
+            <input type="text" id="input" placeholder="New task...">
+            <button id="add">Add</button>
+        </div>
+        <ul id="list" class="list"></ul>
+    </div>
+    <script>
+        const input = document.getElementById('input');
+        const addBtn = document.getElementById('add');
+        const list = document.getElementById('list');
+
+        addBtn.addEventListener('click', addTask);
+        input.addEventListener('keypress', (e) => { if (e.key === 'Enter') addTask(); });
+
+        function addTask() {
+            const task = input.value.trim();
+            if (!task) return;
+            const li = document.createElement('li');
+            li.classList.add('item');
+            li.innerHTML = `<span onclick="toggleDone(this)">${task}</span> <button onclick="this.parentElement.remove()">X</button>`;
+            list.appendChild(li);
+            input.value = '';
+        }
+
+        function toggleDone(element) {
+            element.classList.toggle('done');
+        }
+    </script>
+</body>
+</html>
